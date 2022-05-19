@@ -44,6 +44,8 @@ function parseFilters(...args: Parameters<typeof parseObjects>) {
 
 export default async function main() {
   const task_name = getInput('task_name', { required: true, trimWhitespace: true });
+  const container_name =
+    getInput('container_name', { required: false, trimWhitespace: true }) ?? task_name;
   const cluster = getInput('cluster', { trimWhitespace: true }) ?? 'default';
   const command = parseArray(getInput('command', { trimWhitespace: true }), ' ');
 
@@ -76,7 +78,7 @@ export default async function main() {
   info('Run fargate task');
 
   try {
-    const res = await runTask(task_name, cluster, {
+    const res = await runTask(task_name, container_name, cluster, {
       checkClusterExists,
       isPublicIp,
       count,

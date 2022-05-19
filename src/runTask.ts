@@ -36,6 +36,7 @@ async function hasCluster(cluster: string) {
 
 export default async function runTask(
   taskName: string,
+  containerName: string,
   cluster: string,
   {
     checkClusterExists = false,
@@ -112,7 +113,7 @@ export default async function runTask(
       runTaksRequestParams.overrides = {
         containerOverrides: [
           {
-            name: taskName,
+            name: containerName,
             command,
             environment,
           },
